@@ -1,0 +1,11 @@
+
+print("Blox Fruits Hub carregado!")
+
+local Hub = {
+    AutoFarm = false,
+    AutoBoss = false,
+    LocalizarFrutas = false,
+    Teleporte = false
+}
+
+print("Meu primeiro Hub funcionando!")
