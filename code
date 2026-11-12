@@ -1,11 +1,81 @@
 
-print("Blox Fruits Hub carregado!")
+-- ZAYROX HUB V1
+-- Interface para Roblox
 
-local Hub = {
-    AutoFarm = false,
-    AutoBoss = false,
-    LocalizarFrutas = false,
-    Teleporte = false
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local old = player.PlayerGui:FindFirstChild("ZayroxHub")
+if old then old:Destroy() end
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "ZayroxHub"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local main = Instance.new("Frame")
+main.Size = UDim2.fromOffset(300, 390)
+main.Position = UDim2.new(0.5, -150, 0.5, -195)
+main.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+main.Active = true
+main.Draggable = true
+main.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = main
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 50)
+title.BackgroundTransparency = 1
+title.Text = "ZAYROX HUB V1"
+title.TextColor3 = Color3.fromRGB(255, 60, 60)
+title.TextSize = 23
+title.Font = Enum.Font.GothamBold
+title.Parent = main
+
+local options = {
+    "Auto Farm Level",
+    "Auto Farm Mastery",
+    "Auto Boss",
+    "Localizar Frutas",
+    "Teleporte",
+    "Selecionar Ilha"
 }
 
-print("Meu primeiro Hub funcionando!")
+local states = {}
+
+for i, name in ipairs(options) do
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, -30, 0, 43)
+    button.Position = UDim2.fromOffset(
+        15, 55 + (i - 1) * 50
+    )
+    button.BackgroundColor3 =
+        Color3.fromRGB(38, 38, 45)
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.TextSize = 14
+    button.Font = Enum.Font.GothamBold
+    button.Text = name .. " : OFF"
+    button.Parent = main
+
+    Instance.new("UICorner", button).CornerRadius =
+        UDim.new(0, 8)
+
+    states[name] = false
+
+    button.MouseButton1Click:Connect(function()
+        states[name] = not states[name]
+
+        local active = states[name]
+        button.Text = name ..
+            (active and " : ON" or " : OFF")
+
+        button.BackgroundColor3 = active
+            and Color3.fromRGB(180, 35, 35)
+            or Color3.fromRGB(38, 38, 45)
+
+        print(name, active)
+    end)
+end
+
